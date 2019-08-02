@@ -1,0 +1,19 @@
+
+from geopy.distance import geodesic
+from geopy.geocoders import Nominatim
+from geopy.exc import GeocoderTimedOut
+
+def do_geocode(address):
+    geopy = Nominatim()
+    try:
+        return  geopy.geocode(address)
+    except GeocoderTimedOut:
+        return do_geocode(address)
+
+a=do_geocode('masp')
+b=do_geocode('PRACA DA SE')
+
+
+LUGARA = (a.latitude, a.longitude)
+LUGARB = (b.latitude, b.longitude)
+print(geodesic(LUGARA, LUGARB).km)
